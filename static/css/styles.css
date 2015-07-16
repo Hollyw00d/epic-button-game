@@ -1,0 +1,24 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#wrapper {
+    margin: 0 auto;
+    padding: 20px;
+    width: 920px;
+}
+
+h1, p, button {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+}
+
+button {
+    background: #085394;
+    padding: 50px;
+    font-size: 30px;
+    color: white;
+    border-radius: 100px;
+    border: 2px ;
+}

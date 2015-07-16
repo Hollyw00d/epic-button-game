@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The great button game</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript">
+       var socket = io.connect("http://localhost:6789");
+
+        $(function() {
+
+            $("button").on("click", function(e) {
+                e.preventDefault();
+
+                socket.emit("client_count", {action: "Button clicked"})
+
+            });
+
+            socket.on("server_counter", function(action) {
+                $("#count").html(action.response);
+            });
+
+
+
+
+
+            $("#reset").on("click", function(e) {
+                e.preventDefault();
+                socket.emit("client_reset_count", {action: "Counter reset"});
+            });
+
+            socket.on("server_reset_count", function(action) {
+                $("#count").html(action.zero);
+            });
+
+
+
+
+        });
+    </script>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <h1>This button has been pushed <span id="count"></span> time(s)</h1>
+
+    <p>Push the button to update the count!<br /><button>Push the epic button</button></p>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p><a id="reset" href="reset">RESET COUNT</a></p>
+
+
+</div>
+
+</body>
+</html>
