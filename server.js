@@ -38,7 +38,7 @@ io.sockets.on("connection", function(socket) {
         counter++;
         console.log(counter);
 
-        socket.emit("server_counter", {response: counter});
+        io.emit("server_counter", {response: counter});
     });
 
 
@@ -49,7 +49,7 @@ io.sockets.on("connection", function(socket) {
     socket.on("client_reset_count", function(action) {
         counter = 0;
 
-        socket.emit("server_reset_count", {zero: counter});
+        io.emit("server_reset_count", {zero: counter});
     });
 
 
