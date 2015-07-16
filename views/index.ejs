@@ -9,6 +9,10 @@
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
     <script type="text/javascript">
+       // Assigns "socket" to the correct value
+       // OR can sometimes use the commented out
+       // line below:
+       // var socket = io.connect();
        var socket = io.connect("http://localhost:6789");
 
         $(function() {
@@ -16,29 +20,47 @@
             $("button").on("click", function(e) {
                 e.preventDefault();
 
+                // When button element clicked
+                // sends  a "client_count" emit
+                // from index.ejs to server.js
                 socket.emit("client_count", {action: "Button clicked"})
 
             });
 
+            // Listens for the "server_counter"
+            // emit coming from server.js
+            // before taking an action
             socket.on("server_counter", function(action) {
+                // the "action.response" value
+                // is passed from the "server_counter"
+                // emit from server.js and this value
+                // is assigned to "counter" on server.js
+                // which starts at 0 and increments
+                // by 1, all on server.js
                 $("#count").html(action.response);
             });
 
-
-
-
-
             $("#reset").on("click", function(e) {
                 e.preventDefault();
+
+                // Sends a "client_reset_count" emit from
+                // index.ejs to server.js whenever the
+                // "#reset" link is clicked
                 socket.emit("client_reset_count", {action: "Counter reset"});
             });
 
+            // Listens for a "server_reset_count"
+            // full broadcast emit from server.js
             socket.on("server_reset_count", function(action) {
+                // On a "server_reset_count"
+                // full broadcast emit from "server.js"
+                // sets the "#count" value to
+                // the "action.zero" value
+                // which is defined on "server.js"
+                // as "counter", which is also assigned
+                // to zero on server.js
                 $("#count").html(action.zero);
             });
-
-
-
 
         });
     </script>
